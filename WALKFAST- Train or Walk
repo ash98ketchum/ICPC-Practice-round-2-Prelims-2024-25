@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int T;
+    cin >> T;
+    
+    while (T--) {
+        int N, A, B, C, D, P, Q, Y;
+        cin >> N >> A >> B >> C >> D >> P >> Q >> Y;
+        vector<int> cities(N);
+        for (int i = 0; i < N; ++i) {
+            cin >> cities[i];
+        }
+        A--; B--; C--; D--;
+        int xA = cities[A];
+        int xB = cities[B];
+        int xC = cities[C];
+        int xD = cities[D];
+        int timeDirect = abs(xB - xA) * P;
+        int timeWalkAtoC = abs(xC - xA) * P;
+        if(timeWalkAtoC>Y){
+            cout<<timeDirect<<endl;
+            continue;
+        }
+        int timeTrain = abs(xD - xC) * Q;
+        int timeWalkDtoB = abs(xB - xD) * P;
+        int waitingTime = max(0, Y - timeWalkAtoC);
+        int timeTrainJourney = timeWalkAtoC + waitingTime + timeTrain;
+        int timeTrainJourneyComplete = timeTrainJourney + timeWalkDtoB;
+        int result = min(timeDirect, timeTrainJourneyComplete);
+        cout << result << endl;
+    }
+    
+    return 0;
+}
